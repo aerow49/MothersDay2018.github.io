@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>Happy Mother's Day</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="main.js"></script>
+    <script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
+    <script src="https://rawgit.com/donmccurdy/aframe-extras/v2.1.1/dist/aframe-extras.loaders.min.js"></script>
+</head>
+
+<body>
+    <a-scene id="parent" onclick="playIt()">
+        <a-assets>
+            <a-asset-item id="myModelObj" src="art.obj"></a-asset-item>
+            <a-asset-item id="myModelMtl" src="art.mtl"></a-asset-item>
+
+            <a-asset-item id="beachObj" src="beach.obj"></a-asset-item>
+            <a-asset-item id="beachlMtl" src="beach.mtl"></a-asset-item>
+            <video id="slideShow" src="momvid.mp4" playsinline></video>
+        </a-assets>
+
+        <a-entity id="level" obj-model="obj: #myModelObj; mtl: #myModelMtl" rotation="0 180 0" scale="0.1 0.1 0.1"></a-entity>
+        <a-video id="mov" src="#slideShow" width="4" height="3" position="0 1.8 -1" scale="0.5 0.5 0.5"></a-video>
+        <div id="play" style="position: absolute; z-index: 1; left: 30%; top: 30%; color: green">
+            <h1 id="title" style="font-size:1000%;font-family:verdana;">Click Start</h1>
+        </div>
+        <script>
+            let clicked = false;
+            function playIt() {
+                if (!clicked) {
+                    clicked = true;
+                    console.log("clicl");
+                    window.setTimeout(delay(), 3000);
+                }
+            }
+            function delay() {
+                document.getElementById("slideShow").play(); document.getElementById("parent").removeChild(document.getElementById("play"));
+                window.setTimeout(() => {
+                    document.getElementById("level").setAttribute("obj-model", "obj: #beachObj; mtl: #beachlMtl");
+                    document.getElementById("level").setAttribute("rotation", "0 0 0"); document.getElementById("parent").removeChild(document.getElementById("mov"));
+                }, 126000);
+            }
+        </script>
+    </a-scene>
+</body>
+
+</html>
